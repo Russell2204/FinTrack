@@ -2,20 +2,11 @@
   "services": {
     "frontend": {
       "root": "frontend",
-      "framework": "vite",
-      "env": {
-        "VITE_API_URL": "/api"
-      }
+      "framework": "vite"
     },
     "backend": {
       "root": "backend",
-      "entrypoint": "src/index.ts",
-      "env": {
-        "TURSO_DATABASE_URL": "@fintrack_turso_url",
-        "TURSO_AUTH_TOKEN": "@fintrack_turso_token",
-        "JWT_SECRET": "@fintrack_jwt_secret",
-        "CORS_ORIGIN": "@fintrack_cors_origin"
-      }
+      "entrypoint": "src/index.ts"
     }
   },
   "rewrites": [
