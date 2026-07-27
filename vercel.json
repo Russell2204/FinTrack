@@ -1,14 +1,37 @@
 {
-  "version": 2,
-  "installCommand": "npm install --prefix frontend && npm install --prefix backend",
-  "buildCommand": "npm run build --prefix frontend",
-  "outputDirectory": "frontend/dist",
-  "functions": {
-    "api/index.ts": {
-      "maxDuration": 10
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "framework": "vite",
+      "env": {
+        "VITE_API_URL": "/api"
+      }
+    },
+    "backend": {
+      "root": "backend",
+      "entrypoint": "src/index.ts",
+      "env": {
+        "TURSO_DATABASE_URL": "@fintrack_turso_url",
+        "TURSO_AUTH_TOKEN": "@fintrack_turso_token",
+        "JWT_SECRET": "@fintrack_jwt_secret",
+        "CORS_ORIGIN": "@fintrack_cors_origin"
+      }
     }
   },
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/index.ts" }
+    {
+      "source": "/api(/.*)?",
+      "destination": {
+        "type": "service",
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "type": "service",
+        "service": "frontend"
+      }
+    }
   ]
 }
